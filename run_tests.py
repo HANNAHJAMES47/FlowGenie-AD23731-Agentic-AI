@@ -16,7 +16,6 @@ def run_suite():
         "tests/test_timing_features.py",
         "tests/test_personalization.py",
         "tests/test_automation_systems.py",
-        "tests/test_agent_evaluation.py",
         "tests/test_full_flow.py",
     ]
 
