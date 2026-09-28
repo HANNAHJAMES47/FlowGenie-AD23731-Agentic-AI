@@ -4,7 +4,7 @@ FlowGenie is an intelligent, multi-agent AI event-planning system. Powered by **
 
 ---
 
-## 🤖 5-Agent Architecture
+##  5-Agent Architecture
 
 ```mermaid
 graph TD
@@ -42,7 +42,7 @@ graph TD
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### 1. Activate Environment & Install Dependencies
 ```bash
@@ -67,7 +67,7 @@ Open your browser at: **`http://127.0.0.1:8000/`**
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run the automated integration test suite:
 ```bash
@@ -77,7 +77,7 @@ Run the automated integration test suite:
 
 ---
 
-## 📋 API Reference
+## API Reference
 
 * `POST /plan` — Orchestrates Requirements, Budget, Vendor Discovery, and Recommendation agents. Returns recommendations + agent thought logs.
 * `POST /approve` — Human-in-the-loop checkpoint. Locks in selected vendors, initializes monitoring, and generates the **Run-of-Show Timeline**.
