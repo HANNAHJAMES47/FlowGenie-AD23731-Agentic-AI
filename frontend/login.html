@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In & Account Creation — FlowGenie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css?v=hoperise_clean_v3" />
+    <!-- Lucide Vector Icons Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="auth-page-body">
+    <div class="auth-page-container">
+        <!-- Auth Header -->
+        <header class="auth-page-header">
+            <a href="/" class="brand-link">
+                <span class="brand-logo"><i data-lucide="sparkles" class="icon-brand"></i></span>
+                <div class="brand-text-wrap">
+                    <span class="brand-name">FlowGenie</span>
+                    <span class="brand-tagline">Smart Event Planner</span>
+                </div>
+            </a>
+            <a href="/" class="btn btn-outline btn-sm">
+                <i data-lucide="arrow-left" class="btn-icon"></i> Back to Event Planner
+            </a>
+        </header>
+
+        <!-- Main Split Showcase -->
+        <main class="auth-split-layout">
+            <!-- Left Column: FlowGenie Feature Showcase -->
+            <div class="auth-showcase-panel">
+                <div class="eyebrow-pill">
+                    <i data-lucide="shield-check" class="pill-icon"></i> VIP Concierge Access
+                </div>
+                <h1 class="auth-headline">
+                    Your Personal AI Concierge,<br />
+                    <span class="hero-gradient-text">Ready to Orchestrate.</span>
+                </h1>
+                <p class="auth-subheadline">
+                    Sign in or create your account to save customized event itineraries, lock in verified local vendor packages, and access autonomous contingency safeguards.
+                </p>
+
+                <!-- Value Props List -->
+                <div class="auth-value-props">
+                    <div class="auth-prop-item">
+                        <div class="auth-prop-icon"><i data-lucide="sparkles"></i></div>
+                        <div>
+                            <strong>5 Specialized Autonomous Agents</strong>
+                            <p>Requirements analysis, dynamic budget allocation, parallel discovery, and scoring.</p>
+                        </div>
+                    </div>
+                    <div class="auth-prop-item">
+                        <div class="auth-prop-icon"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <strong>Verified Local Suppliers in Bangalore</strong>
+                            <p>Real verified companies with genuine photo portfolios and tailored pricing slices.</p>
+                        </div>
+                    </div>
+                    <div class="auth-prop-item">
+                        <div class="auth-prop-icon"><i data-lucide="shield-alert"></i></div>
+                        <div>
+                            <strong>Sentinel Watchdog Auto-Recovery</strong>
+                            <p>Instant contingency search and 1-click self-healing if any vendor cancels.</p>
+                        </div>
+                    </div>
+                    <div class="auth-prop-item">
+                        <div class="auth-prop-icon"><i data-lucide="send"></i></div>
+                        <div>
+                            <strong>Direct WhatsApp Web RFPs</strong>
+                            <p>Send category-specific briefs with headcounts and budgets straight to suppliers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Quote -->
+                <div class="auth-quote-card">
+                    <p class="quote-text">"FlowGenie planned our 150-guest wedding in under 2 minutes within our exact INR 4.5L budget. The suppliers were verified and top tier."</p>
+                    <div class="quote-author">
+                        <div class="author-avatar">AR</div>
+                        <div>
+                            <strong>Ananya Roy</strong>
+                            <span>Bride & Event Host • Bangalore</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Dedicated Auth Form Card -->
+            <div class="auth-form-panel">
+                <div class="auth-card-wrapper">
+                    <div class="auth-card-header">
+                        <span class="modal-eyebrow" id="authModeLabel">WELCOME BACK</span>
+                        <h2 id="authPageTitle">Sign In to Your Account</h2>
+                        <p id="authPageSubtitle" style="font-size: 13.5px; color: var(--text-secondary); margin-top: 4px;">
+                            Access your saved event plans and vendor packages.
+                        </p>
+                    </div>
+
+                    <!-- Tab Switcher -->
+                    <div class="auth-tabs" style="margin-top: 20px;">
+                        <button id="tabSignInBtn" class="auth-tab active" data-tab="signin">
+                            <i data-lucide="log-in" class="tab-icon"></i> Sign In
+                        </button>
+                        <button id="tabSignUpBtn" class="auth-tab" data-tab="signup">
+                            <i data-lucide="user-plus" class="tab-icon"></i> Create Account
+                        </button>
+                    </div>
+
+                    <!-- Alert Banner -->
+                    <div id="authAlertBanner" class="alert-banner hidden" style="margin: 16px 0;"></div>
+
+                    <!-- 1. Sign In Form -->
+                    <form id="signInForm" class="auth-form" style="margin-top: 14px;">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="loginEmail" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Email Address or Phone Number</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="mail" class="input-icon"></i>
+                                <input id="loginEmail" type="text" placeholder="name@example.com or +91 98450 12345" required class="select-input" style="padding-left: 38px; height: 46px;" />
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 18px;">
+                            <label for="loginPassword" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Password</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="lock" class="input-icon"></i>
+                                <input id="loginPassword" type="password" placeholder="••••••••" required class="select-input" style="padding-left: 38px; height: 46px;" />
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; font-size: 13px;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-secondary);">
+                                <input type="checkbox" id="rememberMeCheckbox" checked />
+                                <span>Keep me signed in</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submitLoginBtn" class="btn btn-primary btn-lg full-width" style="height: 48px; font-size: 15px;">
+                            <i data-lucide="log-in" class="btn-icon"></i> Sign In to FlowGenie
+                        </button>
+
+                        <div class="auth-divider" style="margin: 20px 0;">
+                            <span>OR QUICK DEMO ACCESS</span>
+                        </div>
+
+                        <button type="button" id="quickDemoLoginBtn" class="btn btn-outline full-width" style="height: 44px;">
+                            <i data-lucide="sparkles" class="btn-icon" style="color: var(--brand-accent);"></i> 1-Click VIP Demo Login (Ananya Roy)
+                        </button>
+                    </form>
+
+                    <!-- 2. Create Account Form -->
+                    <form id="signUpForm" class="auth-form hidden" style="margin-top: 14px;">
+                        <div class="form-group" style="margin-bottom: 14px;">
+                            <label for="signupName" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Full Name</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="user" class="input-icon"></i>
+                                <input id="signupName" type="text" placeholder="e.g. Priya Sharma" required class="select-input" style="padding-left: 38px; height: 44px;" />
+                            </div>
+                        </div>
+
+                        <div class="form-row-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                            <div class="form-group">
+                                <label for="signupEmail" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Email Address</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="mail" class="input-icon"></i>
+                                    <input id="signupEmail" type="email" placeholder="name@example.com" required class="select-input" style="padding-left: 38px; height: 44px;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupPhone" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Phone Number</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="phone" class="input-icon"></i>
+                                    <input id="signupPhone" type="tel" placeholder="+91 98450 12345" class="select-input" style="padding-left: 38px; height: 44px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                            <div class="form-group">
+                                <label for="signupPassword" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Password</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="lock" class="input-icon"></i>
+                                    <input id="signupPassword" type="password" placeholder="Min 6 characters" minlength="6" required class="select-input" style="padding-left: 38px; height: 44px;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupRole" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">I am planning as</label>
+                                <select id="signupRole" class="select-input" style="height: 44px;">
+                                    <option value="Bride & Groom">💍 Bride & Groom</option>
+                                    <option value="Host & Planner" selected>🎉 Event Host / Planner</option>
+                                    <option value="Corporate Organizer">💼 Corporate Organizer</option>
+                                    <option value="Professional Planner">⭐ Professional Event Manager</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submitSignupBtn" class="btn btn-primary btn-lg full-width" style="height: 48px; font-size: 15px;">
+                            <i data-lucide="user-plus" class="btn-icon"></i> Create My FlowGenie Account
+                        </button>
+                    </form>
+
+                    <!-- Guest Mode Skip Link -->
+                    <div style="text-align: center; margin-top: 24px;">
+                        <a href="/" style="font-size: 13px; color: var(--text-secondary); text-decoration: none; font-weight: 600;">
+                            Continue as Guest without signing in <span style="color: var(--brand-accent);">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/login.js?v=hoperise_clean_v1"></script>
+</body>
+
+</html>

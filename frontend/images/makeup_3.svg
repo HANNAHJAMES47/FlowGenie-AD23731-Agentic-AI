@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="m3_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2e1065"/>
+      <stop offset="50%" stop-color="#581c87"/>
+      <stop offset="100%" stop-color="#7e22ce"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#m3_bg)"/>
+  
+  <!-- Dewy Natural Glow Essentials -->
+  <circle cx="400" cy="200" r="90" fill="#f3e8ff" stroke="#c084fc" stroke-width="4"/>
+  <ellipse cx="400" cy="200" rx="60" ry="70" fill="#e9d5ff"/>
+  
+  <!-- Top Category Badge -->
+  <rect x="24" y="24" width="180" height="32" rx="8" fill="rgba(46, 16, 101, 0.85)" stroke="#c084fc" stroke-width="1.5"/>
+  <text x="36" y="45" font-family="sans-serif" font-size="12" font-weight="800" fill="#e9d5ff" letter-spacing="1">🌿 DEWY NATURAL GLOW</text>
+  
+  <!-- Bottom Overlay Bar -->
+  <rect x="0" y="365" width="800" height="85" fill="rgba(46, 16, 101, 0.9)"/>
+  <text x="30" y="402" font-family="sans-serif" font-size="20" font-weight="800" fill="#ffffff">Bridal Glow House</text>
+  <text x="30" y="426" font-family="sans-serif" font-size="13" font-weight="600" fill="#cbd5e1">Skin-First Dewy Finish • Pre-Wedding Trial Consultation • Groom Touch-Up Kit</text>
+</svg>

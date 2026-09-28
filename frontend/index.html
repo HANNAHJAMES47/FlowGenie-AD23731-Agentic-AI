@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowGenie — Smart Event Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css?v=hoperise_clean_v4_rich_svgs" />
+    <!-- Lucide Vector Icons Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <!-- Floating Navigation -->
+        <header class="topbar">
+            <div class="header-left">
+                <a href="/" class="brand-link">
+                    <span class="brand-logo"><i data-lucide="sparkles" class="icon-brand"></i></span>
+                    <div class="brand-text-wrap">
+                        <span class="brand-name">FlowGenie</span>
+                        <span class="brand-tagline">Smart Event Planner</span>
+                    </div>
+                </a>
+                <div class="user-greeting" id="userGreeting" style="display: none;">
+                    <span class="greeting-dot"></span>
+                    <span id="greetingText"></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav class="nav-links">
+                    <button class="nav-tab active" id="navHomeTab">
+                        <i data-lucide="sparkles" class="tab-icon"></i> Overview
+                    </button>
+                    <button class="nav-tab" id="navPlanTab">
+                        <i data-lucide="calendar" class="tab-icon"></i> Plan an Event
+                    </button>
+                    <button class="nav-tab" id="navStatusTab">
+                        <i data-lucide="activity" class="tab-icon"></i> Live Status
+                    </button>
+                </nav>
+                <div class="status-pill" id="connectionStatus">
+                    <span class="status-indicator"></span> Ready
+                </div>
+
+                <!-- Unauthenticated Topbar Actions (Links to dedicated /login and /signup) -->
+                <div id="authLoggedOutGroup" class="auth-topbar-group">
+                    <a href="/login?mode=signin" id="topbarSignInBtn" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                        <i data-lucide="log-in" class="btn-icon"></i> Sign In
+                    </a>
+                    <a href="/login?mode=signup" id="topbarSignUpBtn" class="btn btn-primary btn-sm" style="text-decoration: none;">
+                        <i data-lucide="user-plus" class="btn-icon"></i> Create Account
+                    </a>
+                </div>
+                <!-- Authenticated Topbar Profile Chip & Log Out Button -->
+                <div id="authLoggedInGroup" class="auth-topbar-group" style="display: none;">
+                    <button id="profileBtn" class="user-profile-badge" title="Account & Preferences">
+                        <div class="user-avatar-circle" id="userAvatarCircle">AR</div>
+                        <div class="user-badge-meta">
+                            <span class="user-badge-name" id="userBadgeName">Ananya</span>
+                            <span class="user-badge-role" id="userBadgeRole">Host</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="user-badge-arrow"></i>
+                    </button>
+                    <button id="topbarSignOutBtn" class="btn btn-outline btn-sm" title="Log Out">
+                        <i data-lucide="log-out" class="btn-icon"></i> Log Out
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile Drawer -->
+        <div id="profileDrawer" class="profile-drawer hidden">
+            <div class="drawer-header">
+                <div class="drawer-title-group">
+                    <span class="drawer-subtitle">YOUR SAVED DATA</span>
+                    <h3>My Account & Saved Events</h3>
+                </div>
+                <button id="closeProfileBtn" class="close-btn" aria-label="Close"><i data-lucide="x" class="icon-sm"></i></button>
+            </div>
+            <div class="drawer-content">
+                <div class="profile-section">
+                    <h4>Account Details</h4>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="userName">Name</label>
+                        <input id="userName" type="text" placeholder="Your Name" class="select-input" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="userEmail">Email</label>
+                        <input id="userEmail" type="email" placeholder="name@example.com" class="select-input" />
+                    </div>
+                    <button id="saveProfileBtn" class="btn btn-primary btn-sm full-width">Update Profile</button>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Learned Preferences</h4>
+                    <div id="preferencesList" class="tags-container"></div>
+                </div>
+
+                <div class="profile-section">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+                        <h4 style="margin: 0;">Favorite Suppliers</h4>
+                        <span id="favCountBadge" class="section-tag" style="margin: 0;">0 Saved</span>
+                    </div>
+                    <div id="favoritesList" class="favorites-container"></div>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Planned Events History</h4>
+                    <div id="eventHistoryList" class="history-container"></div>
+                </div>
+
+                <div class="drawer-footer-actions" style="display: flex; gap: 10px; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+                    <button id="clearDataBtn" class="btn btn-outline btn-sm" style="font-size: 12px;">Reset Data</button>
+                    <button id="drawerSignOutBtn" class="btn btn-outline btn-sm" style="font-size: 12px; color: var(--danger); border-color: var(--danger-border);">
+                        <i data-lucide="log-out" class="btn-icon"></i> Log Out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <!-- 0. Welcome & Showcase Landing Page View -->
+            <section id="landingView" class="panel active">
+                <div class="landing-hero-card">
+                    <div class="landing-badge-row">
+                        <span class="editorial-pill"><i data-lucide="sparkles" class="icon-inline"></i> 5 Autonomous AI Agents</span>
+                        <span class="editorial-pill subtle"><i data-lucide="shield-check" class="icon-inline"></i> Verified Local Suppliers</span>
+                        <span class="editorial-pill subtle"><i data-lucide="activity" class="icon-inline"></i> Sentinel Self-Healing Protection</span>
+                    </div>
+
+                    <h1 class="landing-title">
+                        Autonomous AI Event Planning,<br />
+                        <span class="hero-highlight">Orchestrated to Perfection.</span>
+                    </h1>
+
+                    <p class="landing-subtitle">
+                        Plan unforgettable weddings, corporate galas, and milestone celebrations in seconds. FlowGenie uses 5 specialized AI agents to analyze your brief, optimize budgets, discover top verified suppliers with live photography, build your cultural traditions schedule, and autonomously safeguard against cancellations.
+                    </p>
+
+                    <!-- Primary Landing CTAs -->
+                    <div class="landing-cta-group">
+                        <button type="button" id="landingGetStartedBtn" class="btn btn-primary btn-lg">
+                            <i data-lucide="user-plus" class="btn-icon"></i> Create Account & Start Planning
+                        </button>
+                        <button type="button" id="landingSignInBtn" class="btn btn-outline btn-lg">
+                            <i data-lucide="log-in" class="btn-icon"></i> Sign In to Account
+                        </button>
+                        <button type="button" id="landingDemoBtn" class="btn btn-demo btn-lg">
+                            <i data-lucide="sparkles" class="btn-icon" style="color: var(--amber);"></i> 1-Click VIP Demo Login
+                        </button>
+                    </div>
+
+                    <!-- Live Telemetry / Trust Bar -->
+                    <div class="landing-stats-grid">
+                        <div class="landing-stat-item">
+                            <div class="landing-stat-num">5</div>
+                            <div class="landing-stat-label">Specialized AI Agents</div>
+                        </div>
+                        <div class="landing-stat-item">
+                            <div class="landing-stat-num">21+</div>
+                            <div class="landing-stat-label">Verified Suppliers</div>
+                        </div>
+                        <div class="landing-stat-item">
+                            <div class="landing-stat-num">100%</div>
+                            <div class="landing-stat-label">Unique Photo Assets</div>
+                        </div>
+                        <div class="landing-stat-item">
+                            <div class="landing-stat-num">&lt; 1s</div>
+                            <div class="landing-stat-label">Sentinel Auto-Recovery</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 Autonomous Agents Architecture Grid -->
+                <div class="landing-section-block">
+                    <div class="landing-section-header">
+                        <span class="section-tag">MULTI-AGENT WORKFLOW</span>
+                        <h2>5 Autonomous Agents Working in Parallel</h2>
+                        <p class="landing-section-desc">Each agent specializes in a critical phase of event planning, collaborating in real time to deliver verified, budget-aligned recommendations.</p>
+                    </div>
+
+                    <div class="landing-agents-grid">
+                        <div class="landing-agent-card">
+                            <div class="agent-card-icon"><i data-lucide="brain"></i></div>
+                            <div class="agent-card-tag">AGENT 1</div>
+                            <h4>Requirement Analyst Agent</h4>
+                            <p>Parses natural-language event briefs, extracts guest headcounts, venues, dates, and dynamically identifies custom requirements (like rooms/stay, vintage fleets, cakes, and emcees).</p>
+                        </div>
+
+                        <div class="landing-agent-card">
+                            <div class="agent-card-icon"><i data-lucide="calculator"></i></div>
+                            <div class="agent-card-tag">AGENT 2</div>
+                            <h4>Budget & Finance Strategist</h4>
+                            <p>Computes weighted category slices across venues, catering, decor, photography, and custom requirements while verifying per-guest catering food feasibility.</p>
+                        </div>
+
+                        <div class="landing-agent-card">
+                            <div class="agent-card-icon"><i data-lucide="search"></i></div>
+                            <div class="agent-card-tag">AGENT 3</div>
+                            <h4>Autonomous Vendor Discovery</h4>
+                            <p>Executes concurrent parallel queries across Justdial and local verified directories to source distinct candidate suppliers with live portfolios, phone numbers, and specs.</p>
+                        </div>
+
+                        <div class="landing-agent-card">
+                            <div class="agent-card-icon"><i data-lucide="award"></i></div>
+                            <div class="agent-card-tag">AGENT 4</div>
+                            <h4>MCDA Ranking & Aggregator</h4>
+                            <p>Evaluates candidates via multi-criteria decision analysis (ratings, event suitability score, and cost efficiency) to curate top-3 options per category.</p>
+                        </div>
+
+                        <div class="landing-agent-card" style="grid-column: span 2;">
+                            <div class="agent-card-icon"><i data-lucide="shield-alert"></i></div>
+                            <div class="agent-card-tag">AGENT 5</div>
+                            <h4>Booking, Traditions & Sentinel Watchdog</h4>
+                            <p>Builds customizable hour-by-hour schedules aligned with meal timings and cultural traditions, while autonomously monitoring supplier health with instant 1-click self-healing replacements.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Highlights Showcase -->
+                <div class="landing-section-block">
+                    <div class="landing-section-header">
+                        <span class="section-tag">PLATFORM CAPABILITIES</span>
+                        <h2>Engineered for Flawless Celebrations</h2>
+                    </div>
+
+                    <div class="landing-features-grid">
+                        <div class="landing-feature-card">
+                            <div class="feature-icon-box">🏨</div>
+                            <h4>Dynamic Custom Categories</h4>
+                            <p>Type custom requests like <em>"I want rooms for my guests to stay"</em> or <em>"vintage Rolls Royce"</em>—our AI dynamically allocates budget and recommends the best 3 suppliers.</p>
+                        </div>
+
+                        <div class="landing-feature-card">
+                            <div class="feature-icon-box">🪔</div>
+                            <h4>Authentic Cultural Traditions</h4>
+                            <p>1-Click presets for South Indian Kalyanam, North Indian Sangeet & Baraat, Christian Nuptials, Birthday Milestones, and Corporate Keynote Galas.</p>
+                        </div>
+
+                        <div class="landing-feature-card">
+                            <div class="feature-icon-box">🛡️</div>
+                            <h4>Sentinel Auto-Pilot Watchdog</h4>
+                            <p>Real-time autonomous incident detection with instant Pareto-optimal replacement suggestions and live incident recovery audit logs.</p>
+                        </div>
+
+                        <div class="landing-feature-card">
+                            <div class="feature-icon-box">📲</div>
+                            <h4>WhatsApp RFPs & Email Dispatch</h4>
+                            <p>Automatically generate individualized supplier briefs with exact guest counts and menu specs, dispatchable via instant WhatsApp links and email.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3-Step Walkthrough Flow -->
+                <div class="landing-section-block">
+                    <div class="landing-section-header">
+                        <span class="section-tag">HOW IT WORKS</span>
+                        <h2>From Vision to Confirmed Itinerary in 3 Steps</h2>
+                    </div>
+
+                    <div class="landing-steps-row">
+                        <div class="landing-step-item">
+                            <div class="step-num-circle">1</div>
+                            <h4>Sign In & State Your Vision</h4>
+                            <p>Create your account and enter your event type, guest count, budget, and special notes in the smart requirements form.</p>
+                        </div>
+                        <div class="landing-step-item">
+                            <div class="step-num-circle">2</div>
+                            <h4>AI Sourcing & Customization</h4>
+                            <p>5 autonomous agents source, balance budgets, score top 3 supplier options, and generate your customizable hour-by-hour traditions schedule.</p>
+                        </div>
+                        <div class="landing-step-item">
+                            <div class="step-num-circle">3</div>
+                            <h4>Confirm & Sentinel Protection</h4>
+                            <p>Confirm your booking, dispatch WhatsApp RFPs to vendors, and relax knowing Sentinel Watchdog monitors your event 24/7.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom CTA Strip -->
+                <div class="landing-bottom-cta">
+                    <div class="bottom-cta-content">
+                        <h3>Ready to Plan Your Next Celebration?</h3>
+                        <p>Sign in or create an account to unlock your personalized multi-agent planner.</p>
+                    </div>
+                    <div class="bottom-cta-buttons">
+                        <button type="button" id="bottomLandingSignUpBtn" class="btn btn-primary btn-lg">
+                            <i data-lucide="user-plus" class="btn-icon"></i> Create Account
+                        </button>
+                        <button type="button" id="bottomLandingDemoBtn" class="btn btn-outline btn-lg">
+                            <i data-lucide="sparkles" class="btn-icon" style="color: var(--amber);"></i> 1-Click Demo Login
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1. Input View (Gated behind Auth) -->
+            <section id="promptView" class="panel hidden">
+                <!-- User Welcome Banner inside Planner -->
+                <div class="planner-user-banner" id="plannerUserBanner">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="user-avatar-circle" id="plannerUserAvatar">AR</div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 15px; font-weight: 800;" id="plannerUserGreeting">Welcome, Host!</h4>
+                            <p style="margin: 0; font-size: 12.5px; color: var(--text-secondary);">Your AI Multi-Agent Planner is ready. Fill in your requirements below.</p>
+                        </div>
+                    </div>
+                    <button type="button" id="backToLandingBtn" class="btn btn-outline btn-sm" style="font-size: 12px;">
+                        <i data-lucide="arrow-left" class="btn-icon-xs"></i> View Overview
+                    </button>
+                </div>
+
+                <div id="suggestionsCard" class="suggestions-card hidden">
+                    <div class="suggestions-header">
+                        <span class="suggestions-badge"><i data-lucide="compass" class="icon-inline"></i> Quick Start</span>
+                        <h4>Continue with your recent preferences</h4>
+                    </div>
+                    <div id="suggestionsContent"></div>
+                </div>
+
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <div class="hero-badge-row">
+                        <span class="editorial-pill"><i data-lucide="sparkles" class="icon-inline"></i> 3-Step Smart Planner</span>
+                        <span class="editorial-pill subtle"><i data-lucide="shield-check" class="icon-inline"></i> Verified Local Vendors</span>
+                        <span class="editorial-pill subtle"><i data-lucide="clock" class="icon-inline"></i> Full Day Schedule</span>
+                    </div>
+                    <h1 class="hero-title">Plan Your Event in Minutes, <br><span class="hero-highlight">Without the Stress.</span></h1>
+                    <p class="hero-desc">
+                        Tell us what you're planning, your guest count, and your budget. We'll find top-rated venues and vendors, balance your budget, and build your full day's schedule.
+                    </p>
+                </div>
+
+                <div class="form-card-container">
+                    <div class="form-card-header">
+                        <div class="form-header-meta">
+                            <span class="step-tag">PLAN YOUR EVENT</span>
+                            <h3>Tell Us What You Need</h3>
+                        </div>
+                        <p class="form-header-desc">Pick options below to customize your requirements.</p>
+                    </div>
+
+                    <form id="eventForm" class="event-form">
+                        <!-- Quick Event Type Selector -->
+                        <div class="form-group full-width">
+                            <label class="section-label">What are you celebrating?</label>
+                            <div class="quick-chip-group" id="eventTypeChips">
+                                <button type="button" class="preset-chip active" data-value="Wedding">
+                                    <span>💍</span> Wedding
+                                </button>
+                                <button type="button" class="preset-chip" data-value="Birthday">
+                                    <span>🎂</span> Birthday
+                                </button>
+                                <button type="button" class="preset-chip" data-value="Corporate">
+                                    <span>🏢</span> Corporate Event
+                                </button>
+                                <button type="button" class="preset-chip" data-value="Anniversary">
+                                    <span>🥂</span> Anniversary
+                                </button>
+                                <button type="button" class="preset-chip" data-value="Engagement">
+                                    <span>✨</span> Engagement
+                                </button>
+                                <button type="button" class="preset-chip" data-value="Product Launch">
+                                    <span>🚀</span> Product Launch
+                                </button>
+                                <button type="button" class="preset-chip" data-value="Party">
+                                    <span>🎉</span> Party / Gala
+                                </button>
+                            </div>
+                            <input type="hidden" id="eventType" value="Wedding" />
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="guestCount">
+                                    <span class="label-text">Number of Guests</span>
+                                    <span class="label-hint">Approximate count</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="users"></i></span>
+                                    <input id="guestCount" type="number" min="10" max="5000" value="150" placeholder="150" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="location">
+                                    <span class="label-text">City / Area</span>
+                                    <span class="label-hint">Where is the event?</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="map-pin"></i></span>
+                                    <input id="location" type="text" value="Bangalore" placeholder="e.g. Bangalore, Mumbai" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventDate">
+                                    <span class="label-text">Event Date</span>
+                                    <span class="label-hint">When is the big day?</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="calendar"></i></span>
+                                    <input id="eventDate" type="date" />
+                                </div>
+                            </div>
+
+                            <!-- Event Timing & Slot (When the event should happen) -->
+                            <div class="form-group">
+                                <label for="eventTimeSlot">
+                                    <span class="label-text">Event Timing Slot</span>
+                                    <span class="label-hint">When should the event happen?</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="clock"></i></span>
+                                    <select id="eventTimeSlot">
+                                        <option value="Evening / Night (5:00 PM - 11:30 PM)" selected>🌙 Evening / Night (5:00 PM – 11:30 PM)</option>
+                                        <option value="Morning (8:00 AM - 1:00 PM)">🌅 Morning (8:00 AM – 1:00 PM)</option>
+                                        <option value="Afternoon (12:00 PM - 5:00 PM)">☀️ Afternoon (12:00 PM – 5:00 PM)</option>
+                                        <option value="Full Day (8:00 AM - 11:30 PM)">🌟 Full Day (8:00 AM – 11:30 PM)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventStartTime">
+                                    <span class="label-text">Event Start Time</span>
+                                    <span class="label-hint">Exact ceremony/guest call time</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="watch"></i></span>
+                                    <input id="eventStartTime" type="text" value="06:00 PM" placeholder="e.g. 09:00 AM, 06:00 PM" />
+                                </div>
+                            </div>
+
+                            <!-- Budget Field with Presets -->
+                            <div class="form-group">
+                                <label for="budget">
+                                    <span class="label-text">Total Budget (INR)</span>
+                                    <span class="label-hint">All-inclusive budget</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="indian-rupee"></i></span>
+                                    <input id="budget" type="number" min="10000" step="10000" value="350000" />
+                                </div>
+                                <div class="budget-presets-row" id="budgetChips">
+                                    <button type="button" class="budget-chip" data-amount="150000">₹1.5 Lakh</button>
+                                    <button type="button" class="budget-chip active" data-amount="350000">₹3.5 Lakh</button>
+                                    <button type="button" class="budget-chip" data-amount="750000">₹7.5 Lakh</button>
+                                    <button type="button" class="budget-chip" data-amount="1500000">₹15 Lakh+</button>
+                                </div>
+                            </div>
+
+                            <!-- Catering Meal Timing (Morning / Afternoon / Night) -->
+                            <div class="form-group">
+                                <label for="cateringMealSlot">
+                                    <span class="label-text">Catering Meal Timing</span>
+                                    <span class="label-hint">When is catering needed?</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="sun-medium"></i></span>
+                                    <select id="cateringMealSlot">
+                                        <option value="Night (Dinner Buffet / Reception Banquet)" selected>🌙 Night (Dinner Buffet / Reception Banquet)</option>
+                                        <option value="Afternoon (Lunch Feast / High Tea)">☀️ Afternoon (Lunch Feast / High Tea)</option>
+                                        <option value="Morning (Breakfast / Brunch / Morning Pooja)">🌅 Morning (Breakfast / Brunch / Morning Pooja)</option>
+                                        <option value="Full-Day (All Meals: Breakfast + Lunch + Dinner)">🌟 Full-Day (All Meals: Breakfast + Lunch + Dinner)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Expanded Food & Catering Options -->
+                            <div class="form-group">
+                                <label for="cuisine">
+                                    <span class="label-text">Food & Catering Menu Style</span>
+                                    <span class="label-hint">Pick your preferred cuisine or diet</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="utensils"></i></span>
+                                    <select id="cuisine">
+                                        <optgroup label="Grand Feasts & Buffets">
+                                            <option value="Multi-Cuisine" selected>🍛 Multi-Cuisine Grand Buffet (North & South Indian + Chinese + Continental)</option>
+                                            <option value="North Indian">🍖 Royal North Indian & Mughlai (Rich Biryani, Kebabs, Gravies & Naans)</option>
+                                            <option value="South Indian">🍃 Traditional South Indian Banana Leaf Feast (Sadhya / Chettinad / Andhra)</option>
+                                            <option value="Hyderabadi">🥘 Authentic Hyderabadi Dum Biryani Feast (Mughlai Starters & Desserts)</option>
+                                        </optgroup>
+                                        <optgroup label="Vegetarian & Special Diets">
+                                            <option value="Vegetarian">🥗 Pure Vegetarian Gourmet Feast (Live Counters & Traditional Sweets)</option>
+                                            <option value="Jain">🌿 Jain Royal Feast (Strictly No Onion, No Garlic, Satvik Delicacies)</option>
+                                            <option value="Vegan">🥑 Organic, Vegan & Farm-to-Table Gourmet (Healthy & Gluten-Free)</option>
+                                        </optgroup>
+                                        <optgroup label="Regional & Coastal Delights">
+                                            <option value="Coastal">🦐 Coastal & Malabar Seafood Spread (Mangalorean, Goan & Kerala Specials)</option>
+                                            <option value="Rajasthani">🍲 Rajasthani & Gujarati Royal Thali (Dal Baati Churma, Farsan & Sweets)</option>
+                                            <option value="Punjabi">🍢 Punjabi Dhaba & Live Tandoori Grills (Live Tandoor & Lassi Bar)</option>
+                                        </optgroup>
+                                        <optgroup label="International & Modern">
+                                            <option value="Pan-Asian">🥢 Pan-Asian & Oriental (Dim Sum Bar, Thai Curries & Wok Tossed Noodles)</option>
+                                            <option value="Italian">🍝 Italian & Mediterranean (Live Pasta Bar, Woodfired Pizza & Mezze)</option>
+                                            <option value="Mexican">🌮 Mexican & Tex-Mex Fiesta (Live Taco Bar, Nachos & Quesadillas)</option>
+                                        </optgroup>
+                                        <optgroup label="Live Counters & Casual">
+                                            <option value="Street Food">🧆 Live Street Food & Chaat Station (Pani Puri, Dosa Bar & Pav Bhaji)</option>
+                                            <option value="Barbecue">🥩 Barbecue & Sizzler Live Grill Station (Tandoori Skewers & Dips)</option>
+                                            <option value="High Tea">☕ High Tea & Canapé Lounge (Sandwiches, Pastries & Gourmet Chai)</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="decorStyle">
+                                    <span class="label-text">Decoration & Theme</span>
+                                    <span class="label-hint">What visual style do you like?</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="palette"></i></span>
+                                    <select id="decorStyle">
+                                        <option value="Modern">✨ Modern & Elegant (Minimalist Luxury)</option>
+                                        <option value="Royal">👑 Royal & Traditional (Marigold & Golden Drapes)</option>
+                                        <option value="Bohemian">🏮 Boho & Fairylight Theme (Warm Ambient Glow)</option>
+                                        <option value="Floral">🌸 Fresh Floral Garden (Exotic Pastel Blooms)</option>
+                                        <option value="Classic">🏛️ Grand Ballroom Classic (Crystal Chandeliers & Satin)</option>
+                                        <option value="Vintage">🪵 Rustic Vintage (Earthy Wooden Accents)</option>
+                                        <option value="None">🚫 None (No decor needed / Venue includes decor)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="customNotes">
+                                    <span class="label-text">Special Requests & Custom Preferences (Optional)</span>
+                                    <span class="label-hint">Live acoustic music, drone photography, welcome mocktails, photo booth, etc.</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="field-icon"><i data-lucide="file-text"></i></span>
+                                    <input id="customNotes" type="text" placeholder="e.g. Need live acoustic music, outdoor stage setup, drone photography" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button id="submitPromptBtn" type="submit" class="btn btn-primary btn-lg submit-cta-btn">
+                                <i data-lucide="sparkles" class="btn-icon"></i>
+                                <span>Find Best Venues & Vendors</span>
+                                <i data-lucide="arrow-right" class="btn-arrow-icon"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Feature Highlights Banner -->
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <span class="trust-icon"><i data-lucide="zap"></i></span>
+                        <div>
+                            <strong>Instant Search</strong>
+                            <p>Finds venues, caterers, photographers & decorators all at once.</p>
+                        </div>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon"><i data-lucide="shield-check"></i></span>
+                        <div>
+                            <strong>Verified Quality</strong>
+                            <p>Real ratings, direct phone numbers, and transparent prices.</p>
+                        </div>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon"><i data-lucide="clock"></i></span>
+                        <div>
+                            <strong>Day-of Schedule</strong>
+                            <p>Get a complete hour-by-hour timeline for your event day.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Loading View (Visualizer) -->
+            <section id="loadingView" class="panel hidden">
+                <div class="loading-box">
+                    <div class="loading-pulse-badge">
+                        <span class="pulse-ring"></span>
+                        <span class="pulse-core"><i data-lucide="sparkles"></i></span>
+                    </div>
+                    <h3 id="loadingTitle">Finding the Best Vendors for You...</h3>
+                    <p id="loadingDesc" class="loading-subtitle">
+                        We're checking vendor ratings, comparing prices, and organizing your budget...
+                    </p>
+
+                    <div class="step-progress">
+                        <div class="progress-step active" id="step1">
+                            <span class="step-num">01</span>
+                            <div class="step-text">
+                                <strong>1. Understanding your event details</strong>
+                                <small>Guest count, location & date</small>
+                            </div>
+                        </div>
+                        <div class="progress-step" id="step2">
+                            <span class="step-num">02</span>
+                            <div class="step-text">
+                                <strong>2. Budget breakdown</strong>
+                                <small>Calculating cost per guest & service limits</small>
+                            </div>
+                        </div>
+                        <div class="progress-step" id="step3">
+                            <span class="step-num">03</span>
+                            <div class="step-text">
+                                <strong>3. Finding top venues & suppliers</strong>
+                                <small>Searching Justdial, directories & local catalogs</small>
+                            </div>
+                        </div>
+                        <div class="progress-step" id="step4">
+                            <span class="step-num">04</span>
+                            <div class="step-text">
+                                <strong>4. Ranking top 3 options for you</strong>
+                                <small>Picking top-rated verified packages</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Recommendations View -->
+            <section id="recommendationView" class="panel hidden">
+                <div class="section-top">
+                    <div>
+                        <span class="section-eyebrow">CHOOSE YOUR SUPPLIERS</span>
+                        <h2>Recommended Venues & Vendors</h2>
+                        <p class="section-desc">We picked the top 3 options for each service. Select the ones you like, or skip anything you don't need.</p>
+                    </div>
+                    <div class="section-actions">
+                        <button id="favToggleBtn" class="btn btn-outline btn-sm">
+                            <i data-lucide="bookmark" class="btn-icon"></i> Favorites Only
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Budget Allocations Bar -->
+                <div class="budget-card" id="budgetSummaryCard"></div>
+
+                <!-- Execution Audit Log -->
+                <details class="audit-details">
+                    <summary>
+                        <span class="summary-left">
+                            <i data-lucide="info" class="audit-icon-svg"></i>
+                            <span>How we calculated your recommendations & budget</span>
+                        </span>
+                        <span class="summary-toggle-pill">Show Details</span>
+                    </summary>
+                    <div class="audit-log-content" id="agentConsoleLogs"></div>
+                </details>
+
+                <!-- Recommendation Categories Grid -->
+                <div id="recommendationContent"></div>
+
+                <!-- 📅 Customizable Hour-by-Hour Timeline Schedule (Available while selecting vendors!) -->
+                <div class="schedule-card" id="scheduleCustomizerCard" style="margin-top: 32px;">
+                    <div class="schedule-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+                        <div>
+                            <span class="schedule-eyebrow">CUSTOMIZE SCHEDULE WHILE SELECTING VENDORS</span>
+                            <h3>Hour-by-Hour Run-of-Show Schedule</h3>
+                            <p style="font-size: 13.5px; color: var(--text-secondary); margin: 0;">
+                                Tailor times and custom rituals to your traditions while reviewing vendor packages. Add, edit, reorder, or apply cultural tradition presets:
+                            </p>
+                        </div>
+                        <div class="schedule-header-actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button id="addMilestoneBtn" class="btn btn-primary btn-sm">
+                                <i data-lucide="plus" class="btn-icon"></i> Add Custom Milestone / Ritual
+                            </button>
+                            <button id="saveScheduleBtn" class="btn btn-outline btn-sm" title="Save Schedule Changes">
+                                <i data-lucide="save" class="btn-icon"></i> Save Schedule
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Tradition Presets Row -->
+                    <div class="schedule-presets-bar">
+                        <span class="presets-label"><i data-lucide="sparkles" class="icon-inline"></i> Apply Tradition Preset:</span>
+                        <div class="schedule-preset-chips">
+                            <button class="schedule-preset-chip" data-preset="south_indian">🪔 South Indian Muhurtham</button>
+                            <button class="schedule-preset-chip" data-preset="sangeet_north">💃 Sangeet & Baraat</button>
+                            <button class="schedule-preset-chip" data-preset="christian_wedding">⛪ Church & Reception</button>
+                            <button class="schedule-preset-chip" data-preset="birthday_party">🎂 Birthday Celebration</button>
+                            <button class="schedule-preset-chip" data-preset="corporate_gala">💼 Corporate Gala</button>
+                        </div>
+                    </div>
+
+                    <div id="scheduleAlertBanner" class="alert-banner hidden" style="margin: 12px 0;"></div>
+
+                    <!-- Dynamic Timeline List -->
+                    <div id="runOfShowTimeline" class="timeline-list"></div>
+                </div>
+            </section>
+
+            <!-- 4. Confirmation View -->
+            <section id="confirmationView" class="panel hidden">
+                <div class="confirmation-banner">
+                    <div class="confirmation-check-badge"><i data-lucide="check" class="icon-lg"></i></div>
+                    <span class="confirmation-eyebrow">BOOKING CONFIRMED</span>
+                    <h2>Everything is Planned & Scheduled!</h2>
+                    <p>Your selected vendors are locked in and your customized day-of-event schedule is ready.</p>
+                </div>
+
+                <div id="confirmationContent"></div>
+
+                <div class="schedule-card" id="confirmedScheduleCard">
+                    <div class="schedule-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+                        <div>
+                            <span class="schedule-eyebrow">CONFIRMED ITINERARY</span>
+                            <h3>Finalized Hour-by-Hour Schedule</h3>
+                            <p style="font-size: 13.5px; color: var(--text-secondary); margin: 0;">
+                                Day-of-event execution timeline synchronized with your selected suppliers.
+                            </p>
+                        </div>
+                        <div class="schedule-header-actions" style="display: flex; gap: 8px;">
+                            <button id="editScheduleInConfirmBtn" class="btn btn-outline btn-sm">
+                                <i data-lucide="edit-3" class="btn-icon"></i> Modify Schedule
+                            </button>
+                        </div>
+                    </div>
+                    <div id="confirmedTimelineList" class="timeline-list"></div>
+                </div>
+
+                <div class="view-actions">
+                    <button id="viewLiveStatusBtn" class="btn btn-primary btn-lg">
+                        <i data-lucide="activity" class="btn-icon"></i>
+                        <span>View Live Event Status & Backups</span>
+                    </button>
+                </div>
+            </section>
+
+    <!-- Custom Milestone / Ritual Modal -->
+    <div id="milestoneModal" class="modal-backdrop hidden">
+        <div class="modal-card auth-modal-card" style="max-width: 520px;">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-eyebrow">CUSTOMIZE SCHEDULE</span>
+                    <h3 id="milestoneModalTitle">Add Custom Milestone / Ritual</h3>
+                </div>
+                <button id="closeMilestoneModalBtn" class="close-btn" aria-label="Close"><i data-lucide="x" class="icon-sm"></i></button>
+            </div>
+            <form id="milestoneForm" style="padding-top: 10px;">
+                <input type="hidden" id="milestoneEditIndex" value="-1" />
+                <div class="form-row-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                    <div class="form-group">
+                        <label for="milestoneTime" style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Time (e.g. 09:30 AM)</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="clock" class="input-icon"></i>
+                            <input id="milestoneTime" type="text" placeholder="09:30 AM" required class="select-input" style="padding-left: 36px; height: 42px;" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="milestoneCategory" style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Category / Responsibility</label>
+                        <select id="milestoneCategory" class="select-input" style="height: 42px;">
+                            <option value="ceremony">🪔 Ceremony & Rituals</option>
+                            <option value="catering">🍽️ Catering & Dining</option>
+                            <option value="decor">🌸 Decor & Ambience</option>
+                            <option value="photography">📸 Photo & Video</option>
+                            <option value="entertainment">🎵 Music & Entertainment</option>
+                            <option value="makeup">💄 Styling & Makeup</option>
+                            <option value="venue">🏛️ Venue & Logistics</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label for="milestoneTitle" style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Milestone or Tradition Name</label>
+                    <input id="milestoneTitle" type="text" placeholder="e.g. Auspicious Muhurtham Pooja & Kanyadaan" required class="select-input" style="height: 42px;" />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="milestoneDescription" style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Instructions / Custom Notes</label>
+                    <textarea id="milestoneDescription" rows="3" placeholder="e.g. Priest coordinates samagri, photographer covers candid moments, high tea service active..." class="select-input" style="padding: 10px; resize: vertical;"></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" id="cancelMilestoneModalBtn" class="btn btn-outline btn-sm">Cancel</button>
+                    <button type="submit" id="saveMilestoneModalBtn" class="btn btn-primary btn-sm">
+                        <i data-lucide="check" class="btn-icon"></i> Save Milestone
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+            <!-- 5. Status View -->
+            <section id="statusView" class="panel hidden">
+                <div class="section-top">
+                    <div>
+                        <span class="section-eyebrow">LIVE EVENT STATUS</span>
+                        <h2>Event Operations & Backup Support</h2>
+                        <p class="section-desc">Track your event status. If a vendor cancels unexpectedly, we instantly find and recommend verified backup replacements.</p>
+                    </div>
+                </div>
+
+                <!-- Sentinel Auto-Pilot Watchdog Banner -->
+                <div class="sentinel-watchdog-card" id="sentinelWatchdogCard">
+                    <div class="watchdog-header">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="watchdog-pulse-icon"><i data-lucide="shield-alert"></i></span>
+                            <div>
+                                <h4>Sentinel Auto-Pilot Watchdog</h4>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">Autonomous background monitoring & self-healing replanner</p>
+                            </div>
+                        </div>
+                        <div class="watchdog-controls">
+                            <span class="status-pill" id="watchdogBadge" style="background: var(--brand-accent-subtle); color: var(--brand-accent);">
+                                <span class="status-indicator"></span> Active
+                            </span>
+                            <button id="toggleWatchdogBtn" class="btn btn-outline btn-sm">Pause Watchdog</button>
+                        </div>
+                    </div>
+                    <div class="watchdog-stats-row">
+                        <div class="watchdog-stat">
+                            <label>Monitoring Health</label>
+                            <span style="color: var(--brand-accent); font-weight: 800;">100% Operational</span>
+                        </div>
+                        <div class="watchdog-stat">
+                            <label>Suppliers Tracked</label>
+                            <span id="watchdogSupplierCount" style="font-weight: 800;">7 Active</span>
+                        </div>
+                        <div class="watchdog-stat">
+                            <label>Auto-Recovery Policy</label>
+                            <span style="font-weight: 800;">Instant MCDA Backup</span>
+                        </div>
+                    </div>
+
+                    <!-- Autonomous Audit Log Table -->
+                    <div class="watchdog-audit-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <strong>Autonomous Incident & Recovery Log</strong>
+                            <button id="simulateAutoRecoverBtn" class="btn btn-outline btn-sm" style="font-size: 11.5px;">
+                                <i data-lucide="refresh-cw" class="btn-icon-xs"></i> Test Auto-Recovery (Simulate Drop)
+                            </button>
+                        </div>
+                        <div id="sentinelAuditLogList" class="sentinel-log-container"></div>
+                    </div>
+                </div>
+
+                <div id="statusContent"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- WhatsApp & RFP Dispatch Modal -->
+    <div id="rfpModal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-eyebrow">AUTOMATED VENDOR DISPATCH</span>
+                    <h3>Send WhatsApp Briefs & RFPs</h3>
+                </div>
+                <button id="closeRfpModalBtn" class="close-btn" aria-label="Close"><i data-lucide="x" class="icon-sm"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">
+                    We have generated customized briefs for every supplier with exact headcounts, budget limits, and service requirements:
+                </p>
+                
+                <div id="rfpVendorList" class="rfp-list-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="dispatchAllEmailBtn" class="btn btn-outline btn-sm">
+                    <i data-lucide="mail" class="btn-icon"></i> Email Copy to Me
+                </button>
+                <button id="doneRfpModalBtn" class="btn btn-primary btn-sm">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal-backdrop hidden">
+        <div class="modal-card auth-modal-card">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-eyebrow" id="authModalEyebrow">VIP EVENT ACCESS</span>
+                    <h3 id="authModalHeading">Sign In to FlowGenie</h3>
+                </div>
+                <button id="closeAuthModalBtn" class="close-btn" aria-label="Close"><i data-lucide="x" class="icon-sm"></i></button>
+            </div>
+
+            <div class="modal-body" style="padding-top: 10px;">
+                <!-- Tab Switcher -->
+                <div class="auth-tabs" style="margin-bottom: 16px;">
+                    <button id="tabSignInBtn" class="auth-tab active" data-tab="signin">
+                        <i data-lucide="log-in" class="tab-icon"></i> Sign In
+                    </button>
+                    <button id="tabSignUpBtn" class="auth-tab" data-tab="signup">
+                        <i data-lucide="user-plus" class="tab-icon"></i> Create Account
+                    </button>
+                </div>
+
+                <div id="authAlertBanner" class="alert-banner hidden" style="margin-bottom: 16px;"></div>
+
+                <!-- 1. Sign In Form -->
+                <form id="signInForm" class="auth-form">
+                    <div class="form-group" style="margin-bottom: 14px;">
+                        <label for="loginEmail" style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Email or Phone</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="mail" class="input-icon"></i>
+                            <input id="loginEmail" type="text" placeholder="name@example.com or +91 98450 12345" required class="select-input" style="padding-left: 36px; height: 44px;" />
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="loginPassword" style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Password</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="lock" class="input-icon"></i>
+                            <input id="loginPassword" type="password" placeholder="••••••••" required class="select-input" style="padding-left: 36px; height: 44px;" />
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitLoginBtn" class="btn btn-primary btn-lg full-width" style="height: 46px; font-size: 14.5px;">
+                        <i data-lucide="log-in" class="btn-icon"></i> Sign In & Unlock Planner
+                    </button>
+
+                    <div class="auth-divider" style="margin: 16px 0;">
+                        <span>OR INSTANT ACCESS</span>
+                    </div>
+
+                    <button type="button" id="quickDemoLoginBtn" class="btn btn-outline full-width" style="height: 42px; font-size: 13.5px;">
+                        <i data-lucide="sparkles" class="btn-icon" style="color: var(--amber);"></i> 1-Click VIP Demo Login (Ananya Roy)
+                    </button>
+                </form>
+
+                <!-- 2. Sign Up Form -->
+                <form id="signUpForm" class="auth-form hidden">
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="signupName" style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Full Name</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="user" class="input-icon"></i>
+                            <input id="signupName" type="text" placeholder="e.g. Priya Sharma" required class="select-input" style="padding-left: 36px; height: 42px;" />
+                        </div>
+                    </div>
+
+                    <div class="form-row-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                        <div class="form-group">
+                            <label for="signupEmail" style="display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px;">Email Address</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="mail" class="input-icon"></i>
+                                <input id="signupEmail" type="email" placeholder="name@example.com" required class="select-input" style="padding-left: 34px; height: 42px;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPhone" style="display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px;">Phone Number</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="phone" class="input-icon"></i>
+                                <input id="signupPhone" type="tel" placeholder="+91 98450 12345" class="select-input" style="padding-left: 34px; height: 42px;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+                        <div class="form-group">
+                            <label for="signupPassword" style="display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px;">Password</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="lock" class="input-icon"></i>
+                                <input id="signupPassword" type="password" placeholder="Min 6 chars" minlength="6" required class="select-input" style="padding-left: 34px; height: 42px;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupRole" style="display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px;">Role</label>
+                            <select id="signupRole" class="select-input" style="height: 42px;">
+                                <option value="Bride & Groom">💍 Bride & Groom</option>
+                                <option value="Host & Planner" selected>🎉 Event Host</option>
+                                <option value="Corporate Organizer">💼 Corporate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitSignupBtn" class="btn btn-primary btn-lg full-width" style="height: 46px; font-size: 14.5px;">
+                        <i data-lucide="user-plus" class="btn-icon"></i> Create Account & Start Planning
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js?v=hoperise_clean_v12_landing"></script>
+</body>
+
+</html>

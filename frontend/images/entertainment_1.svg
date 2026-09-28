@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="e1_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a044e"/>
+      <stop offset="50%" stop-color="#86198f"/>
+      <stop offset="100%" stop-color="#c026d3"/>
+    </linearGradient>
+    <radialGradient id="stage_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f0abfc" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#86198f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#e1_bg)"/>
+  
+  <!-- Live Concert Spotlight & Instruments -->
+  <circle cx="400" cy="160" r="160" fill="url(#stage_glow)"/>
+  <!-- Guitar & Drums Silhouettes -->
+  <path d="M260 280 L320 120 L340 130 L280 290 Z" fill="#fde047"/>
+  <circle cx="270" cy="285" r="30" fill="#f59e0b"/>
+  <!-- Drum Kit -->
+  <ellipse cx="500" cy="240" rx="40" ry="18" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="3"/>
+  <ellipse cx="580" cy="220" rx="35" ry="16" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="3"/>
+  
+  <!-- Musical Notes Floating -->
+  <g fill="#fdf4ff">
+    <path d="M200 120 L200 90 L230 80 L230 110 Z"/><circle cx="195" cy="120" r="8"/><circle cx="225" cy="110" r="8"/>
+    <path d="M600 100 L600 70 L630 60 L630 90 Z"/><circle cx="595" cy="100" r="8"/><circle cx="625" cy="90" r="8"/>
+  </g>
+  
+  <!-- Top Category Badge -->
+  <rect x="24" y="24" width="180" height="32" rx="8" fill="rgba(74, 4, 78, 0.85)" stroke="#e879f9" stroke-width="1.5"/>
+  <text x="36" y="45" font-family="sans-serif" font-size="12" font-weight="800" fill="#f5d0fe" letter-spacing="1">🎸 5-PIECE LIVE BAND</text>
+  
+  <!-- Bottom Overlay Bar -->
+  <rect x="0" y="365" width="800" height="85" fill="rgba(74, 4, 78, 0.9)"/>
+  <text x="30" y="402" font-family="sans-serif" font-size="20" font-weight="800" fill="#ffffff">Rhythm Collective Live Band</text>
+  <text x="30" y="426" font-family="sans-serif" font-size="13" font-weight="600" fill="#cbd5e1">5-Piece Bollywood, Pop & Retro Ensemble • 3-Hour Dynamic Concert • Sound System Included</text>
+</svg>
