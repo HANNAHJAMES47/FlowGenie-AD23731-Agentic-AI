@@ -14,7 +14,7 @@
 
     <style>
         /* ==========================================================================
-           FlowGenie Warm HopeRise Theme (Matching the Main App)
+           FlowGenie Warm HopeRise Theme - Pixel-Perfect 50/50 Layout
            ========================================================================== */
         html, body.auth-page-body {
             height: 100vh;
@@ -73,6 +73,11 @@
             box-shadow: 0 4px 14px rgba(13, 11, 9, 0.15);
         }
 
+        .auth-brand-logo svg, .auth-brand-logo i {
+            width: 22px;
+            height: 22px;
+        }
+
         .auth-brand-title {
             font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
             font-size: 23px;
@@ -111,6 +116,11 @@
             text-transform: uppercase;
             letter-spacing: 0.06em;
             margin-bottom: 18px;
+        }
+
+        .auth-pill svg {
+            width: 14px;
+            height: 14px;
         }
 
         .auth-main-headline {
@@ -153,8 +163,8 @@
         }
 
         .auth-feature-icon {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             background: var(--bg-card-warm, #FAF6EE);
             border: 1px solid var(--border, #DECDB8);
             color: var(--brand-accent, #2EA334);
@@ -163,6 +173,11 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+        }
+
+        .auth-feature-icon svg {
+            width: 17px;
+            height: 17px;
         }
 
         .auth-feature-text strong {
@@ -189,7 +204,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           Right Column (50%): Clean White Card in Warm Canvas
+           Right Column (50%): Form Card (Pixel-Perfect Alignment)
            -------------------------------------------------------------------------- */
         .auth-form-half {
             flex: 1;
@@ -224,6 +239,11 @@
             transition: all var(--transition-fast, 0.15s ease);
         }
 
+        .topbar-back-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
         .topbar-back-btn:hover {
             background: var(--bg-card-warm, #FAF6EE);
             border-color: var(--border-hover, #C5B097);
@@ -232,7 +252,7 @@
 
         .auth-card {
             width: 100%;
-            max-width: 440px;
+            max-width: 480px;
             background: var(--bg-surface, #FFFFFF);
             border: 1px solid var(--border, #DECDB8);
             border-radius: var(--radius-xl, 28px);
@@ -298,15 +318,21 @@
             transition: all var(--transition-fast, 0.15s ease);
         }
 
+        .auth-tab-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
         .auth-tab-btn.active {
             background: var(--brand, #0D0B09);
             color: #FFFFFF;
             box-shadow: 0 2px 8px rgba(13, 11, 9, 0.15);
         }
 
-        /* Input Controls */
+        /* Input Controls - Pixel-Perfect Flexbox Box & Icon Alignment */
         .auth-input-group {
-            margin-bottom: 11px;
+            margin-bottom: 13px;
+            width: 100%;
         }
 
         .auth-input-group label {
@@ -314,48 +340,91 @@
             font-size: 12px;
             font-weight: 700;
             color: var(--text-primary, #0D0B09);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
+            letter-spacing: -0.01em;
         }
 
         .auth-input-box {
-            position: relative;
             display: flex;
             align-items: center;
-        }
-
-        .auth-input-box i {
-            position: absolute;
-            left: 12px;
-            color: var(--text-tertiary, #8A7768);
-            width: 16px;
-            height: 16px;
-            pointer-events: none;
-        }
-
-        .auth-input-field {
             width: 100%;
-            height: 40px;
+            height: 44px;
             background: var(--bg-card-warm, #FAF6EE);
             border: 1px solid var(--border, #DECDB8);
-            border-radius: var(--radius-sm, 8px);
-            padding: 0 12px 0 36px;
-            color: var(--text-primary, #0D0B09);
-            font-family: inherit;
-            font-size: 13.5px;
+            border-radius: var(--radius-sm, 10px);
+            padding: 0 14px;
+            gap: 11px;
             box-sizing: border-box;
             transition: all var(--transition-fast, 0.15s ease);
         }
 
-        .auth-input-field:focus {
-            outline: none;
+        .auth-input-box:focus-within {
             border-color: var(--brand-accent, #2EA334);
             background: #FFFFFF;
-            box-shadow: 0 0 0 3px var(--brand-accent-subtle, #EAF6EB);
+            box-shadow: 0 0 0 3.5px var(--brand-accent-subtle, #EAF6EB);
+        }
+
+        .auth-input-box i,
+        .auth-input-box svg,
+        .auth-input-box .lucide {
+            color: var(--text-tertiary, #8A7768) !important;
+            width: 17px !important;
+            height: 17px !important;
+            min-width: 17px !important;
+            min-height: 17px !important;
+            flex-shrink: 0 !important;
+            stroke-width: 2 !important;
+            display: block;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: static !important;
+            transform: none !important;
+        }
+
+        .auth-input-box:focus-within i,
+        .auth-input-box:focus-within svg,
+        .auth-input-box:focus-within .lucide {
+            color: var(--brand-accent, #2EA334) !important;
+        }
+
+        .auth-input-box .auth-input-field,
+        .auth-input-box input,
+        .auth-input-box select {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            color: var(--text-primary, #0D0B09) !important;
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 500;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            box-sizing: border-box;
+        }
+
+        .auth-input-box select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A7768' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 2px center !important;
+            background-size: 16px !important;
+            padding-right: 20px !important;
+        }
+
+        .auth-input-box select option {
+            background: #FAF6EE;
+            color: var(--text-primary, #0D0B09);
         }
 
         .auth-submit-btn {
             width: 100%;
-            height: 42px;
+            height: 44px;
             background: var(--brand, #0D0B09);
             color: #FFFFFF;
             border: none;
@@ -371,6 +440,11 @@
             margin-top: 14px;
             box-shadow: 0 4px 14px rgba(13, 11, 9, 0.18);
             transition: all var(--transition-fast, 0.15s ease);
+        }
+
+        .auth-submit-btn svg {
+            width: 16px;
+            height: 16px;
         }
 
         .auth-submit-btn:hover {
@@ -402,7 +476,7 @@
 
         .auth-demo-btn {
             width: 100%;
-            height: 38px;
+            height: 40px;
             background: var(--brand-accent-subtle, #EAF6EB);
             border: 1px solid var(--brand-accent-border, #BCE3BF);
             color: var(--brand-accent-hover, #25872B);
@@ -416,6 +490,11 @@
             justify-content: center;
             gap: 8px;
             transition: all var(--transition-fast, 0.15s ease);
+        }
+
+        .auth-demo-btn svg {
+            width: 15px;
+            height: 15px;
         }
 
         .auth-demo-btn:hover {
@@ -472,7 +551,7 @@
             <!-- Brand Logo -->
             <a href="/" class="auth-brand-header">
                 <div class="auth-brand-logo">
-                    <i data-lucide="sparkles" style="width: 22px; height: 22px;"></i>
+                    <i data-lucide="sparkles"></i>
                 </div>
                 <div>
                     <span class="auth-brand-title">FlowGenie</span>
@@ -483,7 +562,7 @@
             <!-- Central Hero Highlights -->
             <div class="auth-hero-content">
                 <div class="auth-pill">
-                    <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i> VIP Concierge Access
+                    <i data-lucide="shield-check"></i> VIP Concierge Access
                 </div>
                 <h1 class="auth-main-headline">
                     AI Event Planning,<br />
@@ -496,21 +575,21 @@
                 <!-- 3 Compact Key Feature Cards in Matching White Cards -->
                 <div class="auth-feature-list">
                     <div class="auth-feature-item">
-                        <div class="auth-feature-icon"><i data-lucide="sparkles" style="width: 16px; height: 16px;"></i></div>
+                        <div class="auth-feature-icon"><i data-lucide="sparkles"></i></div>
                         <div class="auth-feature-text">
                             <strong>5 Specialized Autonomous Agents</strong>
                             <span>Requirements, linear budget slicing, discovery, and MCDA ranking.</span>
                         </div>
                     </div>
                     <div class="auth-feature-item">
-                        <div class="auth-feature-icon"><i data-lucide="map-pin" style="width: 16px; height: 16px;"></i></div>
+                        <div class="auth-feature-icon"><i data-lucide="map-pin"></i></div>
                         <div class="auth-feature-text">
                             <strong>Verified Local Suppliers in Bangalore</strong>
                             <span>Real verified suppliers with genuine portfolio specifications.</span>
                         </div>
                     </div>
                     <div class="auth-feature-item">
-                        <div class="auth-feature-icon"><i data-lucide="shield-alert" style="width: 16px; height: 16px;"></i></div>
+                        <div class="auth-feature-icon"><i data-lucide="shield-alert"></i></div>
                         <div class="auth-feature-text">
                             <strong>Sentinel Watchdog Auto-Recovery</strong>
                             <span>Instant sub-2-second replacement if any booked vendor cancels.</span>
@@ -531,7 +610,7 @@
              ====================================================================== -->
         <main class="auth-form-half">
             <a href="/" class="topbar-back-btn">
-                <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i> Back to Planner
+                <i data-lucide="arrow-left"></i> Back to Planner
             </a>
 
             <div class="auth-card">
@@ -545,10 +624,10 @@
                 <!-- Tabs Switcher -->
                 <div class="auth-tab-row">
                     <button id="tabSignInBtn" class="auth-tab-btn active" data-tab="signin" type="button">
-                        <i data-lucide="log-in" style="width: 15px; height: 15px;"></i> Sign In
+                        <i data-lucide="log-in"></i> Sign In
                     </button>
                     <button id="tabSignUpBtn" class="auth-tab-btn" data-tab="signup" type="button">
-                        <i data-lucide="user-plus" style="width: 15px; height: 15px;"></i> Create Account
+                        <i data-lucide="user-plus"></i> Create Account
                     </button>
                 </div>
 
@@ -574,7 +653,7 @@
                     </div>
 
                     <button type="submit" id="submitLoginBtn" class="auth-submit-btn">
-                        <i data-lucide="log-in" style="width: 16px; height: 16px;"></i> Sign In to FlowGenie
+                        <i data-lucide="log-in"></i> Sign In to FlowGenie
                     </button>
 
                     <div class="auth-divider-line">
@@ -582,7 +661,7 @@
                     </div>
 
                     <button type="button" id="quickDemoLoginBtn" class="auth-demo-btn">
-                        <i data-lucide="sparkles" style="width: 15px; height: 15px;"></i> 1-Click VIP Demo Login (Ananya Roy)
+                        <i data-lucide="sparkles"></i> 1-Click VIP Demo Login (Ananya Roy)
                     </button>
                 </form>
 
@@ -596,7 +675,7 @@
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="auth-input-group">
                             <label for="signupEmail">Email</label>
                             <div class="auth-input-box">
@@ -613,7 +692,7 @@
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="auth-input-group">
                             <label for="signupPassword">Password</label>
                             <div class="auth-input-box">
@@ -624,7 +703,8 @@
                         <div class="auth-input-group">
                             <label for="signupRole">Role</label>
                             <div class="auth-input-box">
-                                <select id="signupRole" class="auth-input-field" style="padding-left: 10px;">
+                                <i data-lucide="user-check"></i>
+                                <select id="signupRole" class="auth-input-field">
                                     <option value="Host & Planner" selected>🎉 Event Host</option>
                                     <option value="Bride & Groom">💍 Bride/Groom</option>
                                     <option value="Corporate Organizer">💼 Corporate</option>
@@ -634,7 +714,7 @@
                     </div>
 
                     <button type="submit" id="submitSignupBtn" class="auth-submit-btn">
-                        <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i> Create Account
+                        <i data-lucide="user-plus"></i> Create Account
                     </button>
                 </form>
 
@@ -646,7 +726,7 @@
         </main>
     </div>
 
-    <script src="/static/login.js?v=hoperise_clean_v3"></script>
+    <script src="/static/login.js?v=hoperise_clean_v4"></script>
 </body>
 
 </html>
