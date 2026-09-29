@@ -8,212 +8,638 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/styles.css?v=hoperise_clean_v3" />
+    <link rel="stylesheet" href="/static/styles.css?v=hoperise_clean_v4_rich_svgs" />
     <!-- Lucide Vector Icons Library -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* ==========================================================================
+           50/50 Non-Scrollable Split Screen Auth Layout
+           ========================================================================== */
+        html, body.auth-page-body {
+            height: 100vh;
+            max-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden !important;
+            background: #0D0B09;
+            color: #F8F6F0;
+            font-family: 'Plus Jakarta Sans', var(--font-body), sans-serif;
+        }
+
+        .auth-split-wrapper {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --------------------------------------------------------------------------
+           Left Column (50%): Visual Brand Showcase
+           -------------------------------------------------------------------------- */
+        .auth-showcase-half {
+            flex: 1;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(217, 119, 6, 0.18), transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(180, 83, 9, 0.12), transparent 45%),
+                        linear-gradient(145deg, #14110E 0%, #0A0806 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .auth-brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .auth-brand-logo {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #D97706, #B45309);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.35);
+        }
+
+        .auth-brand-title {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .auth-brand-sub {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #D97706;
+            margin-top: 3px;
+            display: block;
+        }
+
+        .auth-hero-content {
+            margin: auto 0;
+            max-width: 520px;
+        }
+
+        .auth-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(217, 119, 6, 0.15);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            color: #FBBF24;
+            padding: 5px 14px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 20px;
+        }
+
+        .auth-main-headline {
+            font-family: 'Fraunces', serif;
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.15;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+            margin: 0 0 16px 0;
+        }
+
+        .auth-main-headline span {
+            background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-main-desc {
+            font-size: 14.5px;
+            line-height: 1.55;
+            color: #A8A29E;
+            margin: 0 0 28px 0;
+        }
+
+        .auth-feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .auth-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 10px 16px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        .auth-feature-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(217, 119, 6, 0.2);
+            color: #FBBF24;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .auth-feature-text strong {
+            display: block;
+            font-size: 13.5px;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .auth-feature-text span {
+            font-size: 12px;
+            color: #78716C;
+        }
+
+        .auth-showcase-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 12.5px;
+            color: #78716C;
+        }
+
+        /* --------------------------------------------------------------------------
+           Right Column (50%): Form Box (Strictly Non-Scrollable)
+           -------------------------------------------------------------------------- */
+        .auth-form-half {
+            flex: 1;
+            width: 50%;
+            height: 100%;
+            background: #0A0806;
+            padding: 30px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 28px 32px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(16px);
+            box-sizing: border-box;
+        }
+
+        .auth-card-top {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .auth-card-top .eyebrow {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: #D97706;
+            text-transform: uppercase;
+        }
+
+        .auth-card-top h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin: 4px 0 6px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .auth-card-top p {
+            font-size: 13px;
+            color: #A8A29E;
+            margin: 0;
+        }
+
+        /* Tabs Switcher */
+        .auth-tab-row {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 18px;
+            gap: 4px;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            padding: 8px 14px;
+            border: none;
+            background: transparent;
+            color: #A8A29E;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .auth-tab-btn.active {
+            background: #D97706;
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
+        }
+
+        /* Input Controls */
+        .auth-input-group {
+            margin-bottom: 12px;
+        }
+
+        .auth-input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #D6D3D1;
+            margin-bottom: 5px;
+        }
+
+        .auth-input-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-input-box i {
+            position: absolute;
+            left: 12px;
+            color: #78716C;
+            width: 16px;
+            height: 16px;
+            pointer-events: none;
+        }
+
+        .auth-input-field {
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 0 12px 0 38px;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 13.5px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .auth-input-field:focus {
+            outline: none;
+            border-color: #D97706;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            height: 42px;
+            background: linear-gradient(135deg, #D97706, #B45309);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .auth-submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(217, 119, 6, 0.45);
+        }
+
+        .auth-divider-line {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #57534E;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            margin: 14px 0;
+        }
+
+        .auth-divider-line::before, .auth-divider-line::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .auth-divider-line span {
+            padding: 0 10px;
+        }
+
+        .auth-demo-btn {
+            width: 100%;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(217, 119, 6, 0.4);
+            color: #FBBF24;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .auth-demo-btn:hover {
+            background: rgba(217, 119, 6, 0.12);
+            border-color: #D97706;
+        }
+
+        .auth-guest-link {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            font-size: 12.5px;
+            color: #A8A29E;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .auth-guest-link:hover {
+            color: #FBBF24;
+        }
+
+        .alert-box {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #FCA5A5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .topbar-back-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #D6D3D1;
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .topbar-back-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+        }
+
+        @media (max-width: 900px) {
+            .auth-showcase-half { display: none; }
+            .auth-form-half { width: 100%; }
+        }
+    </style>
 </head>
 
 <body class="auth-page-body">
-    <div class="auth-page-container">
-        <!-- Auth Header -->
-        <header class="auth-page-header">
-            <a href="/" class="brand-link">
-                <span class="brand-logo"><i data-lucide="sparkles" class="icon-brand"></i></span>
-                <div class="brand-text-wrap">
-                    <span class="brand-name">FlowGenie</span>
-                    <span class="brand-tagline">Smart Event Planner</span>
+    <div class="auth-split-wrapper">
+        
+        <!-- ======================================================================
+             LEFT COLUMN (50%): Elegant Brand Presentation
+             ====================================================================== -->
+        <aside class="auth-showcase-half">
+            <!-- Brand Logo -->
+            <a href="/" class="auth-brand-header">
+                <div class="auth-brand-logo">
+                    <i data-lucide="sparkles" style="width: 22px; height: 22px;"></i>
+                </div>
+                <div>
+                    <span class="auth-brand-title">FlowGenie</span>
+                    <span class="auth-brand-sub">Smart Event Planner</span>
                 </div>
             </a>
-            <a href="/" class="btn btn-outline btn-sm">
-                <i data-lucide="arrow-left" class="btn-icon"></i> Back to Event Planner
-            </a>
-        </header>
 
-        <!-- Main Split Showcase -->
-        <main class="auth-split-layout">
-            <!-- Left Column: FlowGenie Feature Showcase -->
-            <div class="auth-showcase-panel">
-                <div class="eyebrow-pill">
-                    <i data-lucide="shield-check" class="pill-icon"></i> VIP Concierge Access
+            <!-- Central Hero Highlights -->
+            <div class="auth-hero-content">
+                <div class="auth-pill">
+                    <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i> VIP Concierge Access
                 </div>
-                <h1 class="auth-headline">
-                    Your Personal AI Concierge,<br />
-                    <span class="hero-gradient-text">Ready to Orchestrate.</span>
+                <h1 class="auth-main-headline">
+                    AI Event Planning,<br />
+                    <span>Orchestrated to Perfection.</span>
                 </h1>
-                <p class="auth-subheadline">
-                    Sign in or create your account to save customized event itineraries, lock in verified local vendor packages, and access autonomous contingency safeguards.
+                <p class="auth-main-desc">
+                    Sign in to save customized budgets, lock in verified local vendor packages, and activate autonomous contingency self-healing.
                 </p>
 
-                <!-- Value Props List -->
-                <div class="auth-value-props">
-                    <div class="auth-prop-item">
-                        <div class="auth-prop-icon"><i data-lucide="sparkles"></i></div>
-                        <div>
+                <!-- 3 Compact Key Feature Cards -->
+                <div class="auth-feature-list">
+                    <div class="auth-feature-item">
+                        <div class="auth-feature-icon"><i data-lucide="sparkles" style="width: 16px; height: 16px;"></i></div>
+                        <div class="auth-feature-text">
                             <strong>5 Specialized Autonomous Agents</strong>
-                            <p>Requirements analysis, dynamic budget allocation, parallel discovery, and scoring.</p>
+                            <span>Requirements, linear budget slicing, discovery, and MCDA ranking.</span>
                         </div>
                     </div>
-                    <div class="auth-prop-item">
-                        <div class="auth-prop-icon"><i data-lucide="map-pin"></i></div>
-                        <div>
+                    <div class="auth-feature-item">
+                        <div class="auth-feature-icon"><i data-lucide="map-pin" style="width: 16px; height: 16px;"></i></div>
+                        <div class="auth-feature-text">
                             <strong>Verified Local Suppliers in Bangalore</strong>
-                            <p>Real verified companies with genuine photo portfolios and tailored pricing slices.</p>
+                            <span>Real verified suppliers with genuine portfolio specifications.</span>
                         </div>
                     </div>
-                    <div class="auth-prop-item">
-                        <div class="auth-prop-icon"><i data-lucide="shield-alert"></i></div>
-                        <div>
+                    <div class="auth-feature-item">
+                        <div class="auth-feature-icon"><i data-lucide="shield-alert" style="width: 16px; height: 16px;"></i></div>
+                        <div class="auth-feature-text">
                             <strong>Sentinel Watchdog Auto-Recovery</strong>
-                            <p>Instant contingency search and 1-click self-healing if any vendor cancels.</p>
-                        </div>
-                    </div>
-                    <div class="auth-prop-item">
-                        <div class="auth-prop-icon"><i data-lucide="send"></i></div>
-                        <div>
-                            <strong>Direct WhatsApp Web RFPs</strong>
-                            <p>Send category-specific briefs with headcounts and budgets straight to suppliers.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial Quote -->
-                <div class="auth-quote-card">
-                    <p class="quote-text">"FlowGenie planned our 150-guest wedding in under 2 minutes within our exact INR 4.5L budget. The suppliers were verified and top tier."</p>
-                    <div class="quote-author">
-                        <div class="author-avatar">AR</div>
-                        <div>
-                            <strong>Ananya Roy</strong>
-                            <span>Bride & Event Host • Bangalore</span>
+                            <span>Instant sub-2-second replacement if any booked vendor cancels.</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Dedicated Auth Form Card -->
-            <div class="auth-form-panel">
-                <div class="auth-card-wrapper">
-                    <div class="auth-card-header">
-                        <span class="modal-eyebrow" id="authModeLabel">WELCOME BACK</span>
-                        <h2 id="authPageTitle">Sign In to Your Account</h2>
-                        <p id="authPageSubtitle" style="font-size: 13.5px; color: var(--text-secondary); margin-top: 4px;">
-                            Access your saved event plans and vendor packages.
-                        </p>
+            <!-- Footer Meta -->
+            <div class="auth-showcase-footer">
+                <span>Course AD23731 • Foundations of Agentic AI</span>
+                <span>Rajalakshmi Engineering College</span>
+            </div>
+        </aside>
+
+        <!-- ======================================================================
+             RIGHT COLUMN (50%): Compact, Non-Scrollable Auth Form
+             ====================================================================== -->
+        <main class="auth-form-half">
+            <a href="/" class="topbar-back-btn">
+                <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i> Back to Planner
+            </a>
+
+            <div class="auth-card">
+                <!-- Header -->
+                <div class="auth-card-top">
+                    <span class="eyebrow" id="authModeLabel">WELCOME BACK</span>
+                    <h2 id="authPageTitle">Sign In to Your Account</h2>
+                    <p id="authPageSubtitle">Access your saved event plans and vendor packages.</p>
+                </div>
+
+                <!-- Tabs Switcher -->
+                <div class="auth-tab-row">
+                    <button id="tabSignInBtn" class="auth-tab-btn active" data-tab="signin" type="button">
+                        <i data-lucide="log-in" style="width: 15px; height: 15px;"></i> Sign In
+                    </button>
+                    <button id="tabSignUpBtn" class="auth-tab-btn" data-tab="signup" type="button">
+                        <i data-lucide="user-plus" style="width: 15px; height: 15px;"></i> Create Account
+                    </button>
+                </div>
+
+                <!-- Alert Message Box -->
+                <div id="authAlertBanner" class="alert-box hidden"></div>
+
+                <!-- 1. SIGN IN FORM -->
+                <form id="signInForm" class="auth-form">
+                    <div class="auth-input-group">
+                        <label for="loginEmail">Email Address or Phone</label>
+                        <div class="auth-input-box">
+                            <i data-lucide="mail"></i>
+                            <input id="loginEmail" type="text" placeholder="name@example.com" required class="auth-input-field" />
+                        </div>
                     </div>
 
-                    <!-- Tab Switcher -->
-                    <div class="auth-tabs" style="margin-top: 20px;">
-                        <button id="tabSignInBtn" class="auth-tab active" data-tab="signin">
-                            <i data-lucide="log-in" class="tab-icon"></i> Sign In
-                        </button>
-                        <button id="tabSignUpBtn" class="auth-tab" data-tab="signup">
-                            <i data-lucide="user-plus" class="tab-icon"></i> Create Account
-                        </button>
+                    <div class="auth-input-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="auth-input-box">
+                            <i data-lucide="lock"></i>
+                            <input id="loginPassword" type="password" placeholder="••••••••" required class="auth-input-field" />
+                        </div>
                     </div>
 
-                    <!-- Alert Banner -->
-                    <div id="authAlertBanner" class="alert-banner hidden" style="margin: 16px 0;"></div>
+                    <button type="submit" id="submitLoginBtn" class="auth-submit-btn">
+                        <i data-lucide="log-in" style="width: 16px; height: 16px;"></i> Sign In to FlowGenie
+                    </button>
 
-                    <!-- 1. Sign In Form -->
-                    <form id="signInForm" class="auth-form" style="margin-top: 14px;">
-                        <div class="form-group" style="margin-bottom: 16px;">
-                            <label for="loginEmail" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Email Address or Phone Number</label>
-                            <div class="input-with-icon">
-                                <i data-lucide="mail" class="input-icon"></i>
-                                <input id="loginEmail" type="text" placeholder="name@example.com or +91 98450 12345" required class="select-input" style="padding-left: 38px; height: 46px;" />
+                    <div class="auth-divider-line">
+                        <span>OR QUICK DEMO</span>
+                    </div>
+
+                    <button type="button" id="quickDemoLoginBtn" class="auth-demo-btn">
+                        <i data-lucide="sparkles" style="width: 15px; height: 15px;"></i> 1-Click VIP Demo Login (Ananya Roy)
+                    </button>
+                </form>
+
+                <!-- 2. CREATE ACCOUNT FORM -->
+                <form id="signUpForm" class="auth-form hidden">
+                    <div class="auth-input-group">
+                        <label for="signupName">Full Name</label>
+                        <div class="auth-input-box">
+                            <i data-lucide="user"></i>
+                            <input id="signupName" type="text" placeholder="Priya Sharma" required class="auth-input-field" />
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="auth-input-group">
+                            <label for="signupEmail">Email</label>
+                            <div class="auth-input-box">
+                                <i data-lucide="mail"></i>
+                                <input id="signupEmail" type="email" placeholder="name@example.com" required class="auth-input-field" />
                             </div>
                         </div>
-
-                        <div class="form-group" style="margin-bottom: 18px;">
-                            <label for="loginPassword" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Password</label>
-                            <div class="input-with-icon">
-                                <i data-lucide="lock" class="input-icon"></i>
-                                <input id="loginPassword" type="password" placeholder="••••••••" required class="select-input" style="padding-left: 38px; height: 46px;" />
+                        <div class="auth-input-group">
+                            <label for="signupPhone">Phone</label>
+                            <div class="auth-input-box">
+                                <i data-lucide="phone"></i>
+                                <input id="signupPhone" type="tel" placeholder="+91 98450..." class="auth-input-field" />
                             </div>
                         </div>
+                    </div>
 
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; font-size: 13px;">
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-secondary);">
-                                <input type="checkbox" id="rememberMeCheckbox" checked />
-                                <span>Keep me signed in</span>
-                            </label>
-                        </div>
-
-                        <button type="submit" id="submitLoginBtn" class="btn btn-primary btn-lg full-width" style="height: 48px; font-size: 15px;">
-                            <i data-lucide="log-in" class="btn-icon"></i> Sign In to FlowGenie
-                        </button>
-
-                        <div class="auth-divider" style="margin: 20px 0;">
-                            <span>OR QUICK DEMO ACCESS</span>
-                        </div>
-
-                        <button type="button" id="quickDemoLoginBtn" class="btn btn-outline full-width" style="height: 44px;">
-                            <i data-lucide="sparkles" class="btn-icon" style="color: var(--brand-accent);"></i> 1-Click VIP Demo Login (Ananya Roy)
-                        </button>
-                    </form>
-
-                    <!-- 2. Create Account Form -->
-                    <form id="signUpForm" class="auth-form hidden" style="margin-top: 14px;">
-                        <div class="form-group" style="margin-bottom: 14px;">
-                            <label for="signupName" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Full Name</label>
-                            <div class="input-with-icon">
-                                <i data-lucide="user" class="input-icon"></i>
-                                <input id="signupName" type="text" placeholder="e.g. Priya Sharma" required class="select-input" style="padding-left: 38px; height: 44px;" />
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="auth-input-group">
+                            <label for="signupPassword">Password</label>
+                            <div class="auth-input-box">
+                                <i data-lucide="lock"></i>
+                                <input id="signupPassword" type="password" placeholder="Min 6 chars" minlength="6" required class="auth-input-field" />
                             </div>
                         </div>
-
-                        <div class="form-row-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
-                            <div class="form-group">
-                                <label for="signupEmail" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Email Address</label>
-                                <div class="input-with-icon">
-                                    <i data-lucide="mail" class="input-icon"></i>
-                                    <input id="signupEmail" type="email" placeholder="name@example.com" required class="select-input" style="padding-left: 38px; height: 44px;" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="signupPhone" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Phone Number</label>
-                                <div class="input-with-icon">
-                                    <i data-lucide="phone" class="input-icon"></i>
-                                    <input id="signupPhone" type="tel" placeholder="+91 98450 12345" class="select-input" style="padding-left: 38px; height: 44px;" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
-                            <div class="form-group">
-                                <label for="signupPassword" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Password</label>
-                                <div class="input-with-icon">
-                                    <i data-lucide="lock" class="input-icon"></i>
-                                    <input id="signupPassword" type="password" placeholder="Min 6 characters" minlength="6" required class="select-input" style="padding-left: 38px; height: 44px;" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="signupRole" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">I am planning as</label>
-                                <select id="signupRole" class="select-input" style="height: 44px;">
-                                    <option value="Bride & Groom">💍 Bride & Groom</option>
-                                    <option value="Host & Planner" selected>🎉 Event Host / Planner</option>
-                                    <option value="Corporate Organizer">💼 Corporate Organizer</option>
-                                    <option value="Professional Planner">⭐ Professional Event Manager</option>
+                        <div class="auth-input-group">
+                            <label for="signupRole">Role</label>
+                            <div class="auth-input-box">
+                                <select id="signupRole" class="auth-input-field" style="padding-left: 10px;">
+                                    <option value="Host & Planner" selected>🎉 Event Host</option>
+                                    <option value="Bride & Groom">💍 Bride/Groom</option>
+                                    <option value="Corporate Organizer">💼 Corporate</option>
                                 </select>
                             </div>
                         </div>
-
-                        <button type="submit" id="submitSignupBtn" class="btn btn-primary btn-lg full-width" style="height: 48px; font-size: 15px;">
-                            <i data-lucide="user-plus" class="btn-icon"></i> Create My FlowGenie Account
-                        </button>
-                    </form>
-
-                    <!-- Guest Mode Skip Link -->
-                    <div style="text-align: center; margin-top: 24px;">
-                        <a href="/" style="font-size: 13px; color: var(--text-secondary); text-decoration: none; font-weight: 600;">
-                            Continue as Guest without signing in <span style="color: var(--brand-accent);">→</span>
-                        </a>
                     </div>
-                </div>
+
+                    <button type="submit" id="submitSignupBtn" class="auth-submit-btn">
+                        <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i> Create Account
+                    </button>
+                </form>
+
+                <!-- Continue as Guest -->
+                <a href="/" class="auth-guest-link">
+                    Continue as Guest without signing in <span style="color: #FBBF24;">→</span>
+                </a>
             </div>
         </main>
     </div>
 
-    <script src="/static/login.js?v=hoperise_clean_v1"></script>
+    <script src="/static/login.js?v=hoperise_clean_v2"></script>
 </body>
 
 </html>
