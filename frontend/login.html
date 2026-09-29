@@ -14,7 +14,7 @@
 
     <style>
         /* ==========================================================================
-           50/50 Non-Scrollable Split Screen Auth Layout
+           FlowGenie Warm HopeRise Theme (Matching the Main App)
            ========================================================================== */
         html, body.auth-page-body {
             height: 100vh;
@@ -22,9 +22,9 @@
             margin: 0;
             padding: 0;
             overflow: hidden !important;
-            background: #0D0B09;
-            color: #F8F6F0;
-            font-family: 'Plus Jakarta Sans', var(--font-body), sans-serif;
+            background-color: var(--bg-page, #F4EBDD);
+            color: var(--text-primary, #0D0B09);
+            font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
         }
 
         .auth-split-wrapper {
@@ -32,20 +32,21 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
+            background-color: var(--bg-page, #F4EBDD);
         }
 
         /* --------------------------------------------------------------------------
-           Left Column (50%): Visual Brand Showcase
+           Left Column (50%): Warm Sand & Cream Brand Showcase
            -------------------------------------------------------------------------- */
         .auth-showcase-half {
             flex: 1;
             width: 50%;
             height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(217, 119, 6, 0.18), transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(180, 83, 9, 0.12), transparent 45%),
-                        linear-gradient(145deg, #14110E 0%, #0A0806 100%);
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 40px 50px;
+            background: radial-gradient(circle at 15% 25%, rgba(238, 212, 172, 0.6), transparent 55%),
+                        radial-gradient(circle at 85% 80%, rgba(177, 156, 122, 0.25), transparent 50%),
+                        linear-gradient(145deg, #FAF6EE 0%, #F4EBDD 100%);
+            border-right: 1px solid var(--border, #DECDB8);
+            padding: 38px 48px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -63,30 +64,30 @@
         .auth-brand-logo {
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, #D97706, #B45309);
-            color: white;
+            background: var(--brand, #0D0B09);
+            color: #FFFFFF;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.35);
+            box-shadow: 0 4px 14px rgba(13, 11, 9, 0.15);
         }
 
         .auth-brand-title {
-            font-family: 'Fraunces', serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #FFFFFF;
+            font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--text-primary, #0D0B09);
             letter-spacing: -0.02em;
             line-height: 1;
         }
 
         .auth-brand-sub {
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #D97706;
+            color: var(--earth-brown, #5A4434);
             margin-top: 3px;
             display: block;
         }
@@ -100,64 +101,64 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(217, 119, 6, 0.15);
-            border: 1px solid rgba(217, 119, 6, 0.3);
-            color: #FBBF24;
+            background: var(--brand-accent-subtle, #EAF6EB);
+            border: 1px solid var(--brand-accent-border, #BCE3BF);
+            color: var(--brand-accent-hover, #25872B);
             padding: 5px 14px;
-            border-radius: 9999px;
+            border-radius: var(--radius-pill, 9999px);
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .auth-main-headline {
-            font-family: 'Fraunces', serif;
+            font-family: var(--font-serif, 'Fraunces', serif);
             font-size: 38px;
             font-weight: 700;
             line-height: 1.15;
-            color: #FFFFFF;
+            color: var(--text-primary, #0D0B09);
             letter-spacing: -0.02em;
-            margin: 0 0 16px 0;
+            margin: 0 0 14px 0;
         }
 
         .auth-main-headline span {
-            background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--earth-brown, #5A4434);
+            font-style: italic;
         }
 
         .auth-main-desc {
             font-size: 14.5px;
             line-height: 1.55;
-            color: #A8A29E;
-            margin: 0 0 28px 0;
+            color: var(--text-secondary, #5A4434);
+            margin: 0 0 24px 0;
         }
 
         .auth-feature-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .auth-feature-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 10px 16px;
-            border-radius: 12px;
-            backdrop-filter: blur(8px);
+            background: var(--bg-surface, #FFFFFF);
+            border: 1px solid var(--border-subtle, #EADECF);
+            padding: 11px 16px;
+            border-radius: var(--radius-md, 14px);
+            box-shadow: 0 2px 6px rgba(13, 11, 9, 0.03);
         }
 
         .auth-feature-icon {
             width: 32px;
             height: 32px;
-            background: rgba(217, 119, 6, 0.2);
-            color: #FBBF24;
-            border-radius: 8px;
+            background: var(--bg-card-warm, #FAF6EE);
+            border: 1px solid var(--border, #DECDB8);
+            color: var(--brand-accent, #2EA334);
+            border-radius: var(--radius-sm, 8px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -167,34 +168,35 @@
         .auth-feature-text strong {
             display: block;
             font-size: 13.5px;
-            color: #FFFFFF;
-            font-weight: 700;
+            color: var(--text-primary, #0D0B09);
+            font-weight: 800;
         }
 
         .auth-feature-text span {
             font-size: 12px;
-            color: #78716C;
+            color: var(--text-tertiary, #8A7768);
         }
 
         .auth-showcase-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            font-size: 12.5px;
-            color: #78716C;
+            padding-top: 18px;
+            border-top: 1px solid var(--border, #DECDB8);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-tertiary, #8A7768);
         }
 
         /* --------------------------------------------------------------------------
-           Right Column (50%): Form Box (Strictly Non-Scrollable)
+           Right Column (50%): Clean White Card in Warm Canvas
            -------------------------------------------------------------------------- */
         .auth-form-half {
             flex: 1;
             width: 50%;
             height: 100%;
-            background: #0A0806;
-            padding: 30px 60px;
+            background-color: var(--bg-page, #F4EBDD);
+            padding: 24px 48px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -203,53 +205,78 @@
             position: relative;
         }
 
+        .topbar-back-btn {
+            position: absolute;
+            top: 24px;
+            right: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 15px;
+            border-radius: var(--radius-pill, 9999px);
+            background: var(--bg-surface, #FFFFFF);
+            border: 1px solid var(--border, #DECDB8);
+            color: var(--text-primary, #0D0B09);
+            font-size: 12.5px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(13, 11, 9, 0.04);
+            transition: all var(--transition-fast, 0.15s ease);
+        }
+
+        .topbar-back-btn:hover {
+            background: var(--bg-card-warm, #FAF6EE);
+            border-color: var(--border-hover, #C5B097);
+            transform: translateY(-1px);
+        }
+
         .auth-card {
             width: 100%;
             max-width: 440px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
+            background: var(--bg-surface, #FFFFFF);
+            border: 1px solid var(--border, #DECDB8);
+            border-radius: var(--radius-xl, 28px);
             padding: 28px 32px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-lg, 0 20px 40px -6px rgba(13, 11, 9, 0.1));
             box-sizing: border-box;
         }
 
         .auth-card-top {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .auth-card-top .eyebrow {
             font-size: 11px;
             font-weight: 800;
             letter-spacing: 0.1em;
-            color: #D97706;
+            color: var(--brand-accent, #2EA334);
             text-transform: uppercase;
         }
 
         .auth-card-top h2 {
-            font-family: 'Fraunces', serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin: 4px 0 6px 0;
-            letter-spacing: -0.01em;
+            font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--text-primary, #0D0B09);
+            margin: 3px 0 5px 0;
+            letter-spacing: -0.02em;
         }
 
         .auth-card-top p {
             font-size: 13px;
-            color: #A8A29E;
+            color: var(--text-secondary, #5A4434);
             margin: 0;
         }
 
         /* Tabs Switcher */
         .auth-tab-row {
             display: flex;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            background: var(--bg-card-warm, #FAF6EE);
+            border: 1px solid var(--border-subtle, #EADECF);
+            border-radius: var(--radius-pill, 9999px);
             padding: 4px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             gap: 4px;
         }
 
@@ -258,36 +285,36 @@
             padding: 8px 14px;
             border: none;
             background: transparent;
-            color: #A8A29E;
+            color: var(--text-secondary, #5A4434);
             font-family: inherit;
             font-size: 13px;
             font-weight: 700;
-            border-radius: 8px;
+            border-radius: var(--radius-pill, 9999px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            transition: all 0.2s ease;
+            transition: all var(--transition-fast, 0.15s ease);
         }
 
         .auth-tab-btn.active {
-            background: #D97706;
+            background: var(--brand, #0D0B09);
             color: #FFFFFF;
-            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
+            box-shadow: 0 2px 8px rgba(13, 11, 9, 0.15);
         }
 
         /* Input Controls */
         .auth-input-group {
-            margin-bottom: 12px;
+            margin-bottom: 11px;
         }
 
         .auth-input-group label {
             display: block;
             font-size: 12px;
             font-weight: 700;
-            color: #D6D3D1;
-            margin-bottom: 5px;
+            color: var(--text-primary, #0D0B09);
+            margin-bottom: 4px;
         }
 
         .auth-input-box {
@@ -299,7 +326,7 @@
         .auth-input-box i {
             position: absolute;
             left: 12px;
-            color: #78716C;
+            color: var(--text-tertiary, #8A7768);
             width: 16px;
             height: 16px;
             pointer-events: none;
@@ -308,30 +335,31 @@
         .auth-input-field {
             width: 100%;
             height: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 10px;
-            padding: 0 12px 0 38px;
-            color: #FFFFFF;
+            background: var(--bg-card-warm, #FAF6EE);
+            border: 1px solid var(--border, #DECDB8);
+            border-radius: var(--radius-sm, 8px);
+            padding: 0 12px 0 36px;
+            color: var(--text-primary, #0D0B09);
             font-family: inherit;
             font-size: 13.5px;
             box-sizing: border-box;
-            transition: border-color 0.2s;
+            transition: all var(--transition-fast, 0.15s ease);
         }
 
         .auth-input-field:focus {
             outline: none;
-            border-color: #D97706;
-            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--brand-accent, #2EA334);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px var(--brand-accent-subtle, #EAF6EB);
         }
 
         .auth-submit-btn {
             width: 100%;
             height: 42px;
-            background: linear-gradient(135deg, #D97706, #B45309);
-            color: white;
+            background: var(--brand, #0D0B09);
+            color: #FFFFFF;
             border: none;
-            border-radius: 10px;
+            border-radius: var(--radius-pill, 9999px);
             font-family: inherit;
             font-size: 14px;
             font-weight: 700;
@@ -341,30 +369,31 @@
             justify-content: center;
             gap: 8px;
             margin-top: 14px;
-            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
-            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 4px 14px rgba(13, 11, 9, 0.18);
+            transition: all var(--transition-fast, 0.15s ease);
         }
 
         .auth-submit-btn:hover {
+            background: var(--brand-hover, #221D18);
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(217, 119, 6, 0.45);
+            box-shadow: 0 6px 18px rgba(13, 11, 9, 0.24);
         }
 
         .auth-divider-line {
             display: flex;
             align-items: center;
             text-align: center;
-            color: #57534E;
+            color: var(--text-tertiary, #8A7768);
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.06em;
-            margin: 14px 0;
+            margin: 12px 0;
         }
 
         .auth-divider-line::before, .auth-divider-line::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid var(--border-subtle, #EADECF);
         }
 
         .auth-divider-line span {
@@ -374,10 +403,10 @@
         .auth-demo-btn {
             width: 100%;
             height: 38px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(217, 119, 6, 0.4);
-            color: #FBBF24;
-            border-radius: 10px;
+            background: var(--brand-accent-subtle, #EAF6EB);
+            border: 1px solid var(--brand-accent-border, #BCE3BF);
+            color: var(--brand-accent-hover, #25872B);
+            border-radius: var(--radius-pill, 9999px);
             font-family: inherit;
             font-size: 13px;
             font-weight: 700;
@@ -386,66 +415,44 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s;
+            transition: all var(--transition-fast, 0.15s ease);
         }
 
         .auth-demo-btn:hover {
-            background: rgba(217, 119, 6, 0.12);
-            border-color: #D97706;
+            background: #D9F0DB;
+            border-color: #2EA334;
+            transform: translateY(-1px);
         }
 
         .auth-guest-link {
             display: block;
             text-align: center;
-            margin-top: 14px;
+            margin-top: 12px;
             font-size: 12.5px;
-            color: #A8A29E;
+            color: var(--text-secondary, #5A4434);
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
+            font-weight: 700;
+            transition: color var(--transition-fast, 0.15s ease);
         }
 
         .auth-guest-link:hover {
-            color: #FBBF24;
+            color: var(--brand-accent, #2EA334);
         }
 
         .alert-box {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #FCA5A5;
+            background: var(--danger-subtle, #FDF1F1);
+            border: 1px solid var(--danger-border, #F8CECE);
+            color: var(--danger, #D33838);
             padding: 8px 12px;
-            border-radius: 8px;
+            border-radius: var(--radius-sm, 8px);
             font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
+            font-weight: 700;
+            margin-bottom: 10px;
             text-align: center;
         }
 
         .hidden {
             display: none !important;
-        }
-
-        .topbar-back-btn {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #D6D3D1;
-            font-size: 12.5px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .topbar-back-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #FFFFFF;
         }
 
         @media (max-width: 900px) {
@@ -459,7 +466,7 @@
     <div class="auth-split-wrapper">
         
         <!-- ======================================================================
-             LEFT COLUMN (50%): Elegant Brand Presentation
+             LEFT COLUMN (50%): Warm Sand & Cream Brand Showcase
              ====================================================================== -->
         <aside class="auth-showcase-half">
             <!-- Brand Logo -->
@@ -486,7 +493,7 @@
                     Sign in to save customized budgets, lock in verified local vendor packages, and activate autonomous contingency self-healing.
                 </p>
 
-                <!-- 3 Compact Key Feature Cards -->
+                <!-- 3 Compact Key Feature Cards in Matching White Cards -->
                 <div class="auth-feature-list">
                     <div class="auth-feature-item">
                         <div class="auth-feature-icon"><i data-lucide="sparkles" style="width: 16px; height: 16px;"></i></div>
@@ -520,7 +527,7 @@
         </aside>
 
         <!-- ======================================================================
-             RIGHT COLUMN (50%): Compact, Non-Scrollable Auth Form
+             RIGHT COLUMN (50%): Compact, Non-Scrollable Auth Form in Warm Theme
              ====================================================================== -->
         <main class="auth-form-half">
             <a href="/" class="topbar-back-btn">
@@ -633,13 +640,13 @@
 
                 <!-- Continue as Guest -->
                 <a href="/" class="auth-guest-link">
-                    Continue as Guest without signing in <span style="color: #FBBF24;">→</span>
+                    Continue as Guest without signing in <span style="color: var(--brand-accent, #2EA334);">→</span>
                 </a>
             </div>
         </main>
     </div>
 
-    <script src="/static/login.js?v=hoperise_clean_v2"></script>
+    <script src="/static/login.js?v=hoperise_clean_v3"></script>
 </body>
 
 </html>
